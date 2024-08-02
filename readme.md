@@ -1,8 +1,8 @@
-# Simple Application Applying Some Concepts of Clean Arch
+## Simple Application Applying Some Concepts of Clean Arch
 
-## to Execute:
+### to Execute:
   `npm run dev`
 
-## to Build:
+### to Build:
   `npm run build`
 
