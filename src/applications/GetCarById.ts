@@ -5,6 +5,9 @@ export default class GetAllCars {
   constructor(private repo: CarRepo){}
 
   execute(id: string): ICar{
+    if(!id)
+      throw new Error("Parameter id is missing!")
+
     const car = this.repo.readOne(id)
 
     if(!car)

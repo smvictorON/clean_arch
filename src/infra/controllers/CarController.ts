@@ -1,12 +1,13 @@
 import CreateCar from "../../applications/CreateCar";
 import GetAllCars from "../../applications/GetAllCars";
 import GetCarsByModel from "../../applications/GetCarsByModel";
-import GetCarsById from "../../applications/GetCarsById";
+import GetCarById from "../../applications/GetCarById";
 import { ICar } from "../../domains/ICar";
 import CarRepoInMemory from "../repositories/CarRepoInMemory";
 import { Request, Response } from 'express';
 import DeleteCar from "../../applications/DeleteCar";
 import UpdateCar from "../../applications/UpdateCar";
+import { WipeIdPresenter } from "../../presenters/WipeIdPresenter";
 
 const carRepo = new CarRepoInMemory()
 
@@ -30,7 +31,7 @@ export default class CarController {
   static getCars(req: Request, res: Response): void{
     const cars = new GetAllCars(carRepo).execute()
 
-    res.json(cars)
+    res.json(new WipeIdPresenter().format(cars))
   }
 
   static getCarsByModel(req: Request, res: Response): void{
@@ -41,17 +42,17 @@ export default class CarController {
 
     const cars = new GetCarsByModel(carRepo).execute(model)
 
-    res.json(cars)
+    res.json(new WipeIdPresenter().format(cars))
   }
 
-  static getCarsById(req: Request, res: Response): void{
+  static GetCarById(req: Request, res: Response): void{
     const { id } = req.params
 
     if(!id)
       res.status(400).send("Missing id!")
 
     try{
-      res.json(new GetCarsById(carRepo).execute(id))
+      res.json(new GetCarById(carRepo).execute(id))
     }catch(err: any){
       res.status(400).send(err.message)
     }
