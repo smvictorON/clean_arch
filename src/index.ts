@@ -1,18 +1,16 @@
+import dotenv from 'dotenv'
 import express from 'express'
-import CarController from './infra/controllers/CarController'
-import { ICar } from './domains/ICar'
+import carRouter from './infra/routers/CarRouter'
+import { checkToken } from './infra/middlewares/checkToken'
 
 const app = express()
 const port = 3031
 
+dotenv.config();
+
 app.use(express.json())
 
-app.post("/cars", (req, res) => CarController.createCar(req, res));
-app.get("/cars", (req, res) => CarController.getCars(req, res));
-app.get("/cars/:id", (req, res) => CarController.GetCarById(req, res));
-app.patch("/cars/:id", (req, res) => CarController.updateCar(req, res));
-app.delete("/cars/:id", (req, res) => CarController.deleteCar(req, res));
-app.get("/cars/model/:model", (req, res) => CarController.getCarsByModel(req, res));
+app.use("/cars", checkToken, carRouter);
 
 app.listen(port, () => {
   console.log(`Running on ${port}`)

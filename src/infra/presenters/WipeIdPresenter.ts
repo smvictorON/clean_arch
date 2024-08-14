@@ -1,4 +1,4 @@
-import { ICar } from '../domains/ICar';
+import { ICar } from '../../domains/ICar';
 import { IPresenter } from './IPresenter'
 
 export class WipeIdPresenter implements IPresenter {

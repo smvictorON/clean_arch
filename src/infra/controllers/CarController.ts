@@ -7,7 +7,7 @@ import CarRepoInMemory from "../repositories/CarRepoInMemory";
 import { Request, Response } from 'express';
 import DeleteCar from "../../applications/DeleteCar";
 import UpdateCar from "../../applications/UpdateCar";
-import { WipeIdPresenter } from "../../presenters/WipeIdPresenter";
+import { WipeIdPresenter } from "../presenters/WipeIdPresenter";
 
 const carRepo = new CarRepoInMemory()
 
@@ -45,7 +45,7 @@ export default class CarController {
     res.json(new WipeIdPresenter().format(cars))
   }
 
-  static GetCarById(req: Request, res: Response): void{
+  static getCarById(req: Request, res: Response): void{
     const { id } = req.params
 
     if(!id)
