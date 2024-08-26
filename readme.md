@@ -3,6 +3,9 @@
 ### to Execute:
   `npm run dev`
 
+### to Test:
+  `npm run test`
+
 ### to Build:
   `npm run build`
 
@@ -19,4 +22,3 @@
 - Tests
 - Classes
 - Interfaces
-- Adapters

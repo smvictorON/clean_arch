@@ -1,13 +1,23 @@
 import express from 'express';
-import CarController from '../controllers/CarController';
+import {
+  CreateCarCtrl,
+  UpdateCarCtrl,
+  DeleteCarCtrl,
+  GetAllCarsCtrl,
+  GetCarByIdCtrl,
+  GetCarsByModelCtrl,
+} from '../controllers';
+import CarRepoInMemory from "../repositories/CarRepoInMemory";
 
 const router = express.Router();
 
-router.post("/", (req, res) => CarController.createCar(req, res));
-router.get("/", (req, res) => CarController.getCars(req, res));
-router.get("/:id", (req, res) => CarController.getCarById(req, res));
-router.patch("/:id", (req, res) => CarController.updateCar(req, res));
-router.delete("/:id", (req, res) => CarController.deleteCar(req, res));
-router.get("/model/:model", (req, res) => CarController.getCarsByModel(req, res));
+const carRepo = new CarRepoInMemory()
+
+router.post("/", (req, res) => new CreateCarCtrl(carRepo).execute(req, res));
+router.get("/", (req, res) => new GetAllCarsCtrl(carRepo).execute(req, res));
+router.get("/:id", (req, res) => new GetCarByIdCtrl(carRepo).execute(req, res));
+router.patch("/:id", (req, res) => new UpdateCarCtrl(carRepo).execute(req, res));
+router.delete("/:id", (req, res) => new DeleteCarCtrl(carRepo).execute(req, res));
+router.get("/model/:model", (req, res) => new GetCarsByModelCtrl(carRepo).execute(req, res));
 
 export default router;
